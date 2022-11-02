@@ -1,0 +1,47 @@
+server:
+  port: 8080
+
+spring:
+  config:
+    activate:
+      on-profile: local # 기본 프로파일 설정
+    
+  # DB설정
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: "jdbc:mysql://localhost:3306/test?serverTimezone=UTC&characterEncoding=UTF-8"
+    username: root
+    password: 1234
+    
+  jpa:
+    properties:
+      hibernate:
+        use_sql_comments: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        # "[physical_naming_strategy]": "shop.allof.api.hibernate.CamelToSnakePhysicalNamingStrategy"
+        "[format_sql]": true # 정렬된 SQL 출력
+    show-sql: true # 사용되는 SQL 콘솔창에 출력
+    hibernate:
+      ddl-auto: none # 객체에 매핑되는 기존 테이블 자동 드랍 및 새로운 테이블 생성, create, none, create-drop
+
+  jwt:
+    secret: "goasdfasdfasdfasdfasdfasdfsdafasdfasdfasdfasdfasdfblop!@#" # OAuth 토큰 경로
+    
+  devtools:
+    livereload:
+      enabled: true # 개발 시 Live Reload 적용
+
+logging:
+  level:
+    root: INFO # 로그레벨
+
+cloud:
+  aws:
+    credentials:
+      accessKey: "AKIAJNTAJ3BRPVBJYOKQ"
+      secretKey: "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"
+    s3:
+      bucket: "corretto-dev"
+    region:
+      static: "ap-northeast-2"
+    
