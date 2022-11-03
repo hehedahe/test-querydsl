@@ -24,15 +24,19 @@ class QueryDslApplicationTests {
 
   JPAQueryFactory queryFactory;
 
-  // QMember qMember = new QMember("m");
+  // [Q-Type 사용하기]
+  // QMember qMember = new QMember("m"); // 테이블 alias 설정 
+  // -> 조인하는 경우가 아니라면 기본 인스턴스를 사용하여 코드 간결화 하기 
   QMember qMember = QMember.member;
 
 
-  @BeforeEach // JUnit으로 @Test가 붙은 각 메서드가 테스트되기 전 @BeforeEach가 붙은 메서드가 매번 실행된다. 
+  @BeforeEach 
+  // @BeforEach: JUnit으로 @Test가 붙은 각 메서드가 테스트되기 전 @BeforeEach가 붙은 메서드가 매번 실행된다. 
   // @BeforEach, @AfterEach, @BeforeAll, @AfterAll 등이 있다.
   public void before() {
     this.queryFactory = new JPAQueryFactory(em);
   }
+
 
 
   //  @Test
@@ -71,6 +75,8 @@ class QueryDslApplicationTests {
   //    assertThat(findMember.getUsername()).isEqualTo("member1");
   //  }
 
+
+
   @Test
   public void search() {
 
@@ -91,7 +97,8 @@ class QueryDslApplicationTests {
     //  [select: 여러 데이터 조회하기]  
     List<Member> result = queryFactory
         .selectFrom(qMember)
-        .where(qMember.age.eq(10))
+        .where(qMember.username.eq("member1")
+            .or(qMember.age.eq(10)))
         .fetch();
 
     Iterator<Member> resItr = result.iterator();
