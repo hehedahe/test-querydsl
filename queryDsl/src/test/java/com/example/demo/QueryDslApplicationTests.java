@@ -149,17 +149,4 @@ class QueryDslApplicationTests {
 
 
 
-  //  @Test
-  //  public void sort() {
-  //    //    em.persist(new Member(null, 100));
-  //    //    em.persist(new Member("memeber5", 100));
-  //    //    em.persist(new Member("member6", 100));
-  //
-  //    //    List<Member> result = queryFactory
-  //    //        .selectFrom(member)
-  //    //        .where(member.age.eq(100))
-  //    //        .orderBy(member.age.desc(), member.username.asc().nullsLast())
-  //    //        ,fetch();
-  //  }
-  //
 }
