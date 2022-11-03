@@ -1,6 +1,7 @@
 package com.example.demo;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import java.util.Iterator;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,9 +11,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.example.demo.entity.Member;
 import com.example.demo.entity.QMember;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import lombok.extern.slf4j.Slf4j;
 
 @SpringBootTest
 @Transactional
+@Slf4j
 class QueryDslApplicationTests {
 
 
@@ -71,30 +74,31 @@ class QueryDslApplicationTests {
   @Test
   public void search() {
 
+    // [select: 데이터 하나 조회하기]
 
-    Member findMember = queryFactory
-        .selectFrom(qMember)
-        .where(qMember.username.eq("member1")
-            .and(qMember.age.eq(100)))
-        .fetchOne();
-
-    assertThat(findMember.getUsername()).isEqualTo("member1");
-
-
-    //    List<Member> result = queryFactory
+    //    Member findMember = queryFactory
     //        .selectFrom(qMember)
-    //        .where(
-    //            qMember.username.eq("member1"),
-    //            qMember.age.eq(10)
-    //            )
-    //        .fetch();
+    //        .where(qMember.username.eq("member1")
+    //            .and(qMember.age.eq(10)))
+    //        .fetchOne();
     //
-    //    //    System.out.println("result >>>>>>>>>>>>> " + result);
+    //    assertThat(findMember.getUsername()).isEqualTo("member1");
     //
-    //    assertThat(result.size()).isEqualTo(1);
+    //
+    //    log.info("test >>>>>>>> " + findMember.getUsername());
 
 
+    //  [select: 여러 데이터 조회하기]  
+    List<Member> result = queryFactory
+        .selectFrom(qMember)
+        .where(qMember.age.eq(10))
+        .fetch();
 
+    Iterator<Member> resItr = result.iterator();
+
+    while (resItr.hasNext()) {
+      log.info(">>>>> result >>>>> " + resItr.next());
+    }
 
   }
 
